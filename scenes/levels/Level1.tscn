@@ -1,0 +1,85 @@
+[gd_scene load_steps=12 format=3 uid="uid://bkp6bmg3p1fus"]
+
+[ext_resource type="Script" path="res://scenes/ObjectiveArea.gd" id="1_ar0ro"]
+[ext_resource type="PackedScene" uid="uid://qhcry4ulqc7y" path="res://scenes/objects/RedShip.tscn" id="2_xey05"]
+[ext_resource type="Script" path="res://scenes/snow_platform.gd" id="3_nrwru"]
+[ext_resource type="PackedScene" uid="uid://b254fw8r5ekqu" path="res://scenes/objects/SnowPlatform.tscn" id="4_xy0qn"]
+[ext_resource type="Script" path="res://scenes/lower_boundary.gd" id="6_wyh8v"]
+
+[sub_resource type="Gradient" id="Gradient_o2g4f"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lcew5"]
+gradient = SubResource("Gradient_o2g4f")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0.243119, 0.830275)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8vi3m"]
+size = Vector2(134, 274)
+
+[sub_resource type="Gradient" id="Gradient_vs0cv"]
+offsets = PackedFloat32Array(0.00649351, 1)
+colors = PackedColorArray(0.0862745, 0.65098, 0.0862745, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tqdxv"]
+gradient = SubResource("Gradient_vs0cv")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c3a3f"]
+size = Vector2(1177, 54)
+
+[node name="Level1" type="Node"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(266, 266)
+scale = Vector2(40.6002, 20.8311)
+texture = SubResource("GradientTexture2D_lcew5")
+
+[node name="ObjectiveArea" type="Area2D" parent="."]
+position = Vector2(1152, 0)
+script = ExtResource("1_ar0ro")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectiveArea"]
+position = Vector2(-68, 137)
+shape = SubResource("RectangleShape2D_8vi3m")
+
+[node name="Sprite2D" type="Sprite2D" parent="ObjectiveArea"]
+position = Vector2(-68.5, 138)
+scale = Vector2(2.07813, 4.28125)
+texture = SubResource("GradientTexture2D_tqdxv")
+
+[node name="RedShip" parent="." instance=ExtResource("2_xey05")]
+position = Vector2(406, 163)
+rotation = 1.5708
+
+[node name="SnowPlatform" type="Node2D" parent="."]
+position = Vector2(351, 314)
+script = ExtResource("3_nrwru")
+
+[node name="SnowPlatform" parent="SnowPlatform" instance=ExtResource("4_xy0qn")]
+
+[node name="SnowPlatform2" parent="SnowPlatform" instance=ExtResource("4_xy0qn")]
+position = Vector2(70, 0)
+
+[node name="SnowPlatform3" parent="SnowPlatform" instance=ExtResource("4_xy0qn")]
+position = Vector2(140, 0)
+
+[node name="SnowPlatform4" parent="SnowPlatform" instance=ExtResource("4_xy0qn")]
+position = Vector2(-72, 0)
+
+[node name="SnowPlatform5" parent="SnowPlatform" instance=ExtResource("4_xy0qn")]
+position = Vector2(-72, -73)
+
+[node name="SnowPlatform6" parent="SnowPlatform" instance=ExtResource("4_xy0qn")]
+position = Vector2(-72, -146)
+
+[node name="LowerBoundary" type="Area2D" parent="."]
+position = Vector2(0, 649)
+script = ExtResource("6_wyh8v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LowerBoundary"]
+position = Vector2(578.5, 10)
+shape = SubResource("RectangleShape2D_c3a3f")
+
+[connection signal="body_entered" from="ObjectiveArea" to="ObjectiveArea" method="_on_body_entered"]
+[connection signal="body_entered" from="LowerBoundary" to="LowerBoundary" method="_on_body_entered"]

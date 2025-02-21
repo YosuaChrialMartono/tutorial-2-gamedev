@@ -6,6 +6,7 @@
 size = Vector2(100.011, 77.4256)
 
 [node name="BlueShip" type="RigidBody2D"]
+scale = Vector2(3.405, 3.405)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1")
